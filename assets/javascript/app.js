@@ -40,6 +40,7 @@ var questionsToUse;
 var currentQuestion;        //Maybe local scope?
 var correctAnswer;          //Maybe local scope?
 var userAnswer;             //Maybe local scope?
+var triesCounter = 0;
 var correctTries;
 var incorrectTries;
 var timer = 10000;          //Sets the seconds for each question, in milliseconds
@@ -85,34 +86,49 @@ function milSecToSec(pMilSec) {
 
 //Button function fired from HTML button
 function startGame() {
-    timer();
+    $("#secondary-container").hide();
+    $("#trivia-container").show();
     newQuestion();
-
-
 }
 
 //Sets the new question in the DOM
 function newQuestion() {
-    //catch all the DOM elements
-    var question = $("#question");
-    var answer1 = $("#answer-one");
-    var answer2 = $("#answer-two");
-    var answer3 = $("#answer-three");
-    var answer4 = $("#answer-four");
+    //Check if the user hasn't finished all the questions
+    if(questionsLeft()){
+        //catch all the DOM elements
+        var question = $("#question");
+        var answer1 = $("#answer-one");
+        var answer2 = $("#answer-two");
+        var answer3 = $("#answer-three");
+        var answer4 = $("#answer-four");
 
-    //Get a random question from the array
-    var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);
-    var currentQuestion = questionsArr[currentQuestNum].q;
-    //Set recursiveness to write the questions to the DOM
-    var currentAnswer1 = questionsArr[currentQuestNum].ans[0];
-    var currentAnswer2 = questionsArr[currentQuestNum].ans[1];
-    var currentAnswer3 = questionsArr[currentQuestNum].ans[2];
-    var currentAnswer4 = questionsArr[currentQuestNum].ans[3];
-    var currentCorrAnswer = questionsArr[currentQuestNum].cAns;
+        //Get random question and answers from the array
+        var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);
+        var currentQuestion = questionsArr[currentQuestNum].q;
+        var currentAnswer1 = questionsArr[currentQuestNum].ans[0];
+        var currentAnswer2 = questionsArr[currentQuestNum].ans[1];
+        var currentAnswer3 = questionsArr[currentQuestNum].ans[2];
+        var currentAnswer4 = questionsArr[currentQuestNum].ans[3];
+        var currentCorrAnswer = questionsArr[currentQuestNum].cAns;
+
+        //Set the values in the DOM
+        question.text(currentQuestion);
+        answer1.text(currentAnswer1);
+        answer2.text(currentAnswer2);
+        answer3.text(currentAnswer3);
+        answer4.text(currentAnswer4);
+
+        //Once the DOM is set, call the timer
+        timer(timer);
+    } else {
+        endGame();
+    }
 }
 
-function timer() {
-    //Code to show a timer in the screen
+function timer(pTimer) {
+
+    intTimer = pTimer;
+    //Code to show a timer in the screen            -- NOT WORKING YET
     // var timerDisplay = $("#timer");
     // setInterval(function() {
     //     do {
@@ -123,7 +139,27 @@ function timer() {
     // } , 1000);
 
     //Code to call the new question once the timer runs out
-    setTimeout(newQuestion(), secToMilSec(timer));
+    setTimeout(newQuestion(), secToMilSec(intTimer));
 }
+
+//Check how many questions there are, and make sure we don't try to ask more than there are available
+function questionsLeft() {
+    if(questionsArr.length > triesCounter) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function endGame() {
+    $("#trivia-container").hide();
+    //SHOW or create a container with the scores
+    //Offer a button to restart the game
+}
+
+
+//Once ALL of the DOM is set, start listening for the clicks!
+$("#trivia-container").click(function() {
+
 
 });
