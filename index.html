@@ -14,16 +14,26 @@
         <span id="secondary-container">
             <h2>Here we'll test your knowledge about computers and development in general!</h2>
             <h3>You'll only have 10 seconds per question, NO CHEATING!</h3>
-            <h3>Click the button to begin! <button onclick="startGame()">Start!</button></h3>
+            <h3>Click the button to begin! <button class="start-game">Start!</button></h3>
         </span>
 
         <span id="trivia-container">
-            <h1 id="question"></h1>
-            <h2 id="answer-one"></h1>
-            <h2 id="answer-two"></h1>
-            <h2 id="answer-three"></h1>
-            <h2 id="answer-four"></h1>
-            <h3 id="timer">timer placeholder</h3>
+            <h2 id="question"></h1>
+            <h3 id="answer-one" data="a"></h1>
+            <h3 id="answer-two" data="b"></h1>
+            <h3 id="answer-three" data="c"></h1>
+            <h3 id="answer-four" data="d"></h1>
+            <p id="timer">timer placeholder</p>
+        </span>
+
+        <span id="end-game-container">
+            <h2>Did you have fun?</h2>
+            <h3>You had: <span id="score-correct"></span>correct answers.</h3>
+            <h3>You had: <span id="score-incorrect"></span>wrong answers.</h3>
+            <br>
+            <h3>Do you want to try again?</h3>
+            <button class="start-game">Start!</button>
+
         </span>
     </span>
 
