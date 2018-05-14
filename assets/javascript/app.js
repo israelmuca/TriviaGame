@@ -182,6 +182,8 @@ $(document).ready(function() {
     }
 
     function endGame() {
+        clearTimeout(timeOutID);
+        clearInterval(intervalID);
         //Sets the values of the correct/incorrect answers
         $("#score-correct").text(correctTries);
         $("#score-incorrect").text(incorrectTries);
