@@ -30,6 +30,14 @@ PSEUDOCODE:
                 - END GAME
                 - CALCULATE SCORE
 
+
+
+
+TO DO:
+- CORRECT THE RANDOM SHOWING OF THE ANSWERS
+- CHECK WHY THE COUNTER STARTS WEIRDLY AFTER THE SECOND GAME
+- GET A PROPER UI
+
 */
 
 var correctAnswer;
@@ -54,30 +62,30 @@ $(document).ready(function() {
     //Array of objects to hold the questions and answers
     var questionsArr = [
         {
-            q:"Test question 1 with answer a",                         //Question 1
+            q:"Test question 1 with answer a",                          //Question 1
         
-            ans:["a","b","c","d"],         //Answers to show 1
+            ans:["a","b","c","d"],                                      //Answers to show 1
         
-            cAns:"a"
-        },                       //Correct answer 1
+            cAns:"a"                                                    //Correct answer 1
+        },
         {
-            q:"Test question 2 with answer b",                         //Question 2 
+            q:"Test question 2 with answer b",                          //Question 2 
         
-            ans:["a","b","c","d"],         //Answers to show 2 
+            ans:["a","b","c","d"],                                      //Answers to show 2 
         
-            cAns:"b"
-        },                       //Correct answer 2
+            cAns:"b"                                                    //Correct answer 2
+        },
         {
-            q:"Test question 3 with answer c",                         //Question 3
+            q:"Test question 3 with answer c",                          //Question 3
         
-            ans:["a","b","c","d"],         //Answers to show 3
+            ans:["a","b","c","d"],                                      //Answers to show 3
         
-            cAns:"c"
-        },                       //Correct answer 3
+            cAns:"c"                                                    //Correct answer 3
+        },
     ]
 
     //Once ALL of the DOM is set, start listening for the clicks!
-    //Button listeners
+    //Buttons listener
     $(".start-game").click(startGame);
     //Answers listener
     $("#trivia-container").click(function(event) {
@@ -107,16 +115,14 @@ $(document).ready(function() {
     //Function to start the timer
     function timer(pTimer) {
         clearInterval(intervalID);
-        var timerContainer = $("#timer");
-        // var intTimer = pTimer;
         intervalID = setInterval(function(){
             pTimer--;
-            timerContainer.text(pTimer);
+            $("#timer").text(pTimer);
         } , 1000);
     }
 
     //Sets the new question in the DOM
-    //Should also start the timer that is shown, and the timer that counts the time before the new question
+    //Should also start the timer that is shown, and the timer that counts the time before the new question is automatically shown
     function newQuestion() {
         clearTimeout(timeOutID);
         //Check if the user hasn't finished all the questions
@@ -128,8 +134,8 @@ $(document).ready(function() {
             var answer3 = $("#answer-three");
             var answer4 = $("#answer-four");
 
-            //Get random question and answers from the array
-            var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);   //SHOULDN'T BE RANDOM, SHOULD BE IN ORDER!!!
+            //Get random question and answers from the array                          //SHOULDN'T BE RANDOM, SHOULD BE IN ORDER!!!
+            var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);
             var currentQuestion = questionsArr[currentQuestNum].q;
             var currentAnswer1 = questionsArr[currentQuestNum].ans[0];
             var currentAnswer2 = questionsArr[currentQuestNum].ans[1];
@@ -150,7 +156,7 @@ $(document).ready(function() {
 
             //Once the DOM is set, call the timers (both the invisible and the visible one)
             //Invisible, calls the new question through another function if the user takes too much time
-            //It's send through another function to add to the incorrectTries var
+            //It's sent through another function to add to the incorrectTries var
             timeOutID = setTimeout(noAnswer, secToMilSec(seconds));
             //Visible, shows the timer in the screen
             timer(milSecToSec(seconds));
@@ -171,16 +177,17 @@ $(document).ready(function() {
     //Function that's called when the user doesn't answer on time, and we want to call newQuestion but increasing the incorrectTries counter
     function noAnswer() {
         incorrectTries++;
-        alert("Wrong, you ran out of time!");
+        alert("Sorry, you ran out of time!");
         newQuestion();
     }
 
     function endGame() {
-        $("#trivia-container").hide();
-        $("#end-game-container").show();
-        //Should send the values of correct or incorrect answers
+        //Sets the values of the correct/incorrect answers
         $("#score-correct").text(correctTries);
         $("#score-incorrect").text(incorrectTries);
+        //Modifies the DOM to show the correct containers
+        $("#trivia-container").hide();
+        $("#end-game-container").show();
     }
 
 
