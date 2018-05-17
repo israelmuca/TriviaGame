@@ -34,7 +34,8 @@ PSEUDOCODE:
 
 
 TO DO:
-- CHECK WHY THE COUNTER STARTS WEIRDLY AFTER THE SECOND GAME
+- FIX  THE VALIDATION OF THE CORRECT ANSWERS
+    POSSIBLY BY USING THE FIRST CHAR OF THE ANSWERS IT'LL WORK
 - GET A PROPER UI
 
 */
@@ -62,25 +63,52 @@ $(document).ready(function() {
     //Array of objects to hold the questions and answers
     var questionsArr = [
         {
-            q:"Test question 1 with answer a",                          //Question 1
+            q:"Which is NOT a reason for why there are multiple programming languages?",  
         
-            ans:["a","b","c","d"],                                      //Answers to show 1
+            ans:[
+                "A - Most operating systems were written a long time ago and their old languages would be insanely expensive to fix so we just keep making new ones instead.",
+                "B - Different groups of people came up with their own rulesets for their own specific needs at the same time hence a bunch of different ways to talk to the computer.",
+                "C - There are two schools of thought: the first language is the best vs. new languages need to be created to get with the times.",
+                "D - Because languages are fun, the more the better!"
+            ],
         
-            cAns:"a"                                                    //Correct answer 1
+            cAns:"c"                                                    //Correct answer 1
         },
         {
-            q:"Test question 2 with answer b",                          //Question 2 
+            q:"Why do we even need CSS? Why not just use HTML?",                          //Question 2 
         
-            ans:["a","b","c","d"],                                      //Answers to show 2 
+            ans:[
+                "A - You don't need CSS, HTML can do it all.",
+                "B - CSS makes your page load faster.",
+                "C - CSS gives you more control over the page.",
+                "D - CSS is not even a programming language"
+            ],
         
-            cAns:"b"                                                    //Correct answer 2
+            cAns:"c"                                                    //Correct answer 2
         },
         {
-            q:"Test question 3 with answer c",                          //Question 3
+            q:"Which four things make up a stack?",                          //Question 3
         
-            ans:["a","b","c","d"],                                      //Answers to show 3
+            ans:[
+                "A - An operating system, a server system,  a database, and a back-end language.",
+                "B - One front end language, one back end language, and a database for each.",
+                "C - You only need a back-end language and the rest is up to you.",
+                "D - The 4 different languages you use to make your app."
+            ],
         
-            cAns:"c"                                                    //Correct answer 3
+            cAns:"a"                                                    //Correct answer 3
+        },
+        {
+            q:"Which 'answer' would be correct? for var answer = '1' + ' 1'",                          //Question 4
+        
+            ans:[
+                "A - 2" ,
+                "B - 11",
+                "C - 112",
+                "D - 1 1"
+            ],
+        
+            cAns:"d"                                                    //Correct answer 3
         },
     ]
 
@@ -117,8 +145,8 @@ $(document).ready(function() {
     function timer(pTimer) {
         clearInterval(intervalID);
         intervalID = setInterval(function(){
-            pTimer--;
             $("#timer").text(pTimer);
+            pTimer--;
         } , 1000);
     }
 
