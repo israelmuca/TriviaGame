@@ -34,7 +34,6 @@ PSEUDOCODE:
 
 
 TO DO:
-- CORRECT THE RANDOM SHOWING OF THE ANSWERS
 - CHECK WHY THE COUNTER STARTS WEIRDLY AFTER THE SECOND GAME
 - GET A PROPER UI
 
@@ -47,6 +46,7 @@ var incorrectTries = 0;
 var intervalID;
 var timeOutID;
 var seconds = 10000;          //Sets the seconds for each question, in milliseconds
+var currentQuestNum = 0;
 
 //Makes sure the document is fully loaded when we get to work
 $(document).ready(function() {
@@ -106,6 +106,7 @@ $(document).ready(function() {
         triesCounter = 0;
         correctTries = 0;
         incorrectTries = 0;
+        currentQuestNum = 0;
         $("#secondary-container").hide();
         $("#end-game-container").hide();
         $("#trivia-container").show();
@@ -134,8 +135,8 @@ $(document).ready(function() {
             var answer3 = $("#answer-three");
             var answer4 = $("#answer-four");
 
-            //Get random question and answers from the array                          //SHOULDN'T BE RANDOM, SHOULD BE IN ORDER!!!
-            var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);
+            //Get questions and answers from the array                          //SHOULDN'T BE RANDOM, SHOULD BE IN ORDER!!!
+            //var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);
             var currentQuestion = questionsArr[currentQuestNum].q;
             var currentAnswer1 = questionsArr[currentQuestNum].ans[0];
             var currentAnswer2 = questionsArr[currentQuestNum].ans[1];
@@ -153,6 +154,8 @@ $(document).ready(function() {
 
             //Add a new try to the counter
             triesCounter++;
+            //Add 1 to the currentQuestNum to make sure it circles through the array
+            currentQuestNum++;
 
             //Once the DOM is set, call the timers (both the invisible and the visible one)
             //Invisible, calls the new question through another function if the user takes too much time
