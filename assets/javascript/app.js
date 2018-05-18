@@ -37,6 +37,7 @@ TO DO:
 
 - MAKE 100% MOBILE
 - If user clicks in between buttons, there's an exception
+- If user hovers after clicking the answer and painting the button, the button is changed, fix it
 
 */
 
@@ -180,27 +181,50 @@ $(document).ready(function() {
         var answer3 = $(".answer-three");
         var answer4 = $(".answer-four");
 
-        if (pIsClickCorrect) { //if click is correct
-            //Find which button was, and paint it green
-            if (pAnswerClick.nodeValue == "a") {
-                answer1.addClass("is-success");
-            } else if (pAnswerClick.nodeValue == "b") {
-                answer2.addClass("is-success");
-            } else if (pAnswerClick.nodeValue == "c") {
-                answer3.addClass("is-success");
-            } else if (pAnswerClick.nodeValue == "d") {
-                answer4.addClass("is-success");
+        if (pAnswerClick) { //If there's click event
+            if (pIsClickCorrect) { //AND click is correct
+                //Find which button was, and paint it green
+                if (pAnswerClick.nodeValue == "a") {
+                    answer1.addClass("is-success");
+                } else if (pAnswerClick.nodeValue == "b") {
+                    answer2.addClass("is-success");
+                } else if (pAnswerClick.nodeValue == "c") {
+                    answer3.addClass("is-success");
+                } else if (pAnswerClick.nodeValue == "d") {
+                    answer4.addClass("is-success");
+                }
+            } else {
+                //Find which button was, and paint it red
+                if (pAnswerClick.nodeValue == "a") {
+                    answer1.addClass("is-danger");
+                } else if (pAnswerClick.nodeValue == "b") {
+                    answer2.addClass("is-danger");
+                } else if (pAnswerClick.nodeValue == "c") {
+                    answer3.addClass("is-danger");
+                } else if (pAnswerClick.nodeValue == "d") {
+                    answer4.addClass("is-danger");
+                }
+                //Find the correct button and paint it green
+                if (correctAnswer == "a") {
+                    answer1.addClass("is-success is-outlined");
+                } else if (correctAnswer == "b") {
+                    answer2.addClass("is-success is-outlined");
+                } else if (correctAnswer == "c") {
+                    answer3.addClass("is-success is-outlined");
+                } else if (correctAnswer == "d") {
+                    answer4.addClass("is-success is-outlined");
+                }
             }
-        } else {
-            //Find which button was, and paint it red
-            if (pAnswerClick.nodeValue == "a") {
-                answer1.addClass("is-danger");
-            } else if (pAnswerClick.nodeValue == "b") {
-                answer2.addClass("is-danger");
-            } else if (pAnswerClick.nodeValue == "c") {
-                answer3.addClass("is-danger");
-            } else if (pAnswerClick.nodeValue == "d") {
-                answer4.addClass("is-danger");
+        } else { //If there's no click event
+            //Find the correct button and paint it green
+            if (correctAnswer == "a") {
+                answer1.addClass("is-success is-outlined");
+            } else if (correctAnswer == "b") {
+                answer2.addClass("is-success is-outlined");
+            } else if (correctAnswer == "c") {
+                answer3.addClass("is-success is-outlined");
+            } else if (correctAnswer == "d") {
+                answer4.addClass("is-success is-outlined");
             }
         }
     }
@@ -330,6 +354,8 @@ $(document).ready(function() {
         subtitle.text("Sorry, you ran out of time!    :(");
         hero.removeClass("is-light");
         hero.addClass("is-danger");
+        //Find the correct button and paint it green
+        paintButtons();
         //Dale un par de segundos para que vea las respuestas
         timeOutForPaint = setTimeout(function(){
             incorrectTries++;
