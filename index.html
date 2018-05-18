@@ -26,9 +26,7 @@
 
     <!-- Separator to make sure the header is not stuck to the next elements -->
     <section class="columns">
-        <div class="column">
-            <!-- Separator -->
-        </div>
+        <div class="column"></div>
     </section>
 
     <!-- Container for instructions -->
@@ -63,7 +61,10 @@
                 <li class="button is-fullwidth answer-three" data="c"><p id="answer-three" data="c"></p></li>
                 <li class="button is-fullwidth answer-four" data="d"><p id="answer-four" data="d"></p></li>
             </ul> 
-            <hr>
+            <!-- Separator to make sure the header is not stuck to the next elements -->
+            <section class="columns">
+                <div class="column"></div>
+            </section>
             <progress id="progTimer" class="progress" value="0" max="10"></progress>
         </div>
         <div class="column is-1"></div>
@@ -73,8 +74,10 @@
     <div id="end-game-container" class="content columns is-mobile">
             <div class="column is-3"></div>
             <div class="column">
+                <hr>
                 <h3 id="result-phrase"></h3>
-                <h4>You had: <span id="score-correct"></span> correct answers.</h4>
+                <hr>
+                <h4 style="margin-top: 10px">You had: <span id="score-correct"></span> correct answers.</h4>
                 <h4>You had: <span id="score-incorrect"></span> wrong answers.</h4>
                 <br> <h4 class="center-text">Did you have fun? <br> Do you want to try again?
                 <br><button class="start-game button is-primary">Try again!</button></h4>

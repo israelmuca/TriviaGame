@@ -36,6 +36,7 @@ PSEUDOCODE:
 TO DO:
 
 - MAKE 100% MOBILE
+- If user clicks in between buttons, there's an exception
 
 */
 
