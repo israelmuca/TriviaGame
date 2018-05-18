@@ -36,7 +36,6 @@ PSEUDOCODE:
 TO DO:
 
 - MAKE 100% MOBILE
-- If user clicks in between buttons, there's an exception
 - If user hovers after clicking the answer and painting the button, the button is changed, fix it
 
 */
@@ -131,45 +130,49 @@ $(document).ready(function() {
     $(".start-game").click(startGame);
     //Answers listener
     $("#answer-list").click(function(event) {
-        if (!clickCounter) {
-            clickCounter = true;
-            var isClickCorrect;
-            var answerClick = event.target.attributes.data;
-            var timeOutForPaint;
-            if (answerClick.nodeValue == correctAnswer) {
-                //Call the function that paints the answer
-                isClickCorrect = true;
-                paintButtons(answerClick, isClickCorrect);
-                //Pausa el timer invisible y visible
-                clearInterval(intervalID);
-                clearTimeout(timeOutID);
-                //Shows correct in the title and eliminates the subtitle
-                title.text("Correct!");
-                subtitle.text(":)");
-                hero.removeClass("is-light");
-                hero.addClass("is-success");
-                //Dale un par de segundos para que vea las respuestas
-                timeOutForPaint = setTimeout(function(){
-                    correctTries++;
-                    newQuestion(); 
-                }, 3000);
-            } else {
-                //Call the function that paints the answer
-                isClickCorrect = false;
-                paintButtons(answerClick, isClickCorrect);
-                //Pausa el timer invisible y visible
-                clearInterval(intervalID);
-                clearTimeout(timeOutID);
-                //Shows correct in the title and eliminates the subtitle
-                title.text("Incorrect!");
-                subtitle.text(":(");
-                hero.removeClass("is-light");
-                hero.addClass("is-danger");
-                //Dale un par de segundos para que vea las respuestas
-                timeOutForPaint = setTimeout(function(){
-                    incorrectTries++;
-                    newQuestion(); 
-                }, 3000);
+        if (event.target.id == "answer-list") {
+            //do nothing
+        } else {
+            if (!clickCounter) {
+                clickCounter = true;
+                var isClickCorrect;
+                var answerClick = event.target.attributes.data;
+                var timeOutForPaint;
+                if (answerClick.nodeValue == correctAnswer) {
+                    //Call the function that paints the answer
+                    isClickCorrect = true;
+                    paintButtons(answerClick, isClickCorrect);
+                    //Pausa el timer invisible y visible
+                    clearInterval(intervalID);
+                    clearTimeout(timeOutID);
+                    //Shows correct in the title and eliminates the subtitle
+                    title.text("Correct!");
+                    subtitle.text(":)");
+                    hero.removeClass("is-light");
+                    hero.addClass("is-success");
+                    //Dale un par de segundos para que vea las respuestas
+                    timeOutForPaint = setTimeout(function(){
+                        correctTries++;
+                        newQuestion(); 
+                    }, 3000);
+                } else {
+                    //Call the function that paints the answer
+                    isClickCorrect = false;
+                    paintButtons(answerClick, isClickCorrect);
+                    //Pausa el timer invisible y visible
+                    clearInterval(intervalID);
+                    clearTimeout(timeOutID);
+                    //Shows correct in the title and eliminates the subtitle
+                    title.text("Incorrect!");
+                    subtitle.text(":(");
+                    hero.removeClass("is-light");
+                    hero.addClass("is-danger");
+                    //Dale un par de segundos para que vea las respuestas
+                    timeOutForPaint = setTimeout(function(){
+                        incorrectTries++;
+                        newQuestion(); 
+                    }, 3000);
+                }
             }
         }
     });
