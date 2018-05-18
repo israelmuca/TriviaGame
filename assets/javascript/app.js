@@ -37,6 +37,7 @@ TO DO:
 - FIX  THE VALIDATION OF THE CORRECT ANSWERS
     POSSIBLY BY USING THE FIRST CHAR OF THE ANSWERS IT'LL WORK
 - GET A PROPER UI
+- CHANGE THE CURSOR FOR SELECTING THE ANSWERS
 
 */
 
@@ -46,7 +47,7 @@ var correctTries = 0;
 var incorrectTries = 0;
 var intervalID;
 var timeOutID;
-var seconds = 10000;          //Sets the seconds for each question, in milliseconds
+var seconds = 11000;          //Sets the seconds for each question, in milliseconds, one more than needed for progress bar aesthetics
 var currentQuestNum = 0;
 
 //Makes sure the document is fully loaded when we get to work
@@ -59,6 +60,7 @@ $(document).ready(function() {
     triviaContainer.hide();
     var endGameContainer = $("#end-game-container");
     endGameContainer.hide();
+    var progTimerObj = $("#progTimer");
 
     //Array of objects to hold the questions and answers
     var questionsArr = [
@@ -66,10 +68,10 @@ $(document).ready(function() {
             q:"Which is NOT a reason for why there are multiple programming languages?",  
         
             ans:[
-                "A - Most operating systems were written a long time ago and their old languages would be insanely expensive to fix so we just keep making new ones instead.",
-                "B - Different groups of people came up with their own rulesets for their own specific needs at the same time hence a bunch of different ways to talk to the computer.",
-                "C - There are two schools of thought: the first language is the best vs. new languages need to be created to get with the times.",
-                "D - Because languages are fun, the more the better!"
+                "Most operating systems were written a long time ago and their old languages would be insanely expensive to fix so we just keep making new ones instead.",
+                "Different groups of people came up with their own rulesets for their own specific needs at the same time hence a bunch of different ways to talk to the computer.",
+                "There are two schools of thought: the first language is the best vs. new languages need to be created to get with the times.",
+                "Because languages are fun, the more the better!"
             ],
         
             cAns:"c"                                                    //Correct answer 1
@@ -78,10 +80,10 @@ $(document).ready(function() {
             q:"Why do we even need CSS? Why not just use HTML?",                          //Question 2 
         
             ans:[
-                "A - You don't need CSS, HTML can do it all.",
-                "B - CSS makes your page load faster.",
-                "C - CSS gives you more control over the page.",
-                "D - CSS is not even a programming language"
+                "You don't need CSS, HTML can do it all.",
+                "CSS makes your page load faster.",
+                "CSS gives you more control over the page.",
+                "CSS is not even a programming language"
             ],
         
             cAns:"c"                                                    //Correct answer 2
@@ -90,10 +92,10 @@ $(document).ready(function() {
             q:"Which four things make up a stack?",                          //Question 3
         
             ans:[
-                "A - An operating system, a server system,  a database, and a back-end language.",
-                "B - One front end language, one back end language, and a database for each.",
-                "C - You only need a back-end language and the rest is up to you.",
-                "D - The 4 different languages you use to make your app."
+                "An operating system, a server system,  a database, and a back-end language.",
+                "One front end language, one back end language, and a database for each.",
+                "You only need a back-end language and the rest is up to you.",
+                "The 4 different languages you use to make your app."
             ],
         
             cAns:"a"                                                    //Correct answer 3
@@ -102,10 +104,10 @@ $(document).ready(function() {
             q:"Which 'answer' would be correct? for var answer = '1' + ' 1'",                          //Question 4
         
             ans:[
-                "A - 2" ,
-                "B - 11",
-                "C - 112",
-                "D - 1 1"
+                "2" ,
+                "11",
+                "112",
+                "1 1"
             ],
         
             cAns:"d"                                                    //Correct answer 3
@@ -119,6 +121,8 @@ $(document).ready(function() {
     $("#trivia-container").click(function(event) {
         var answerClick = event.target.attributes.data;
         if (answerClick.nodeValue == correctAnswer) {
+            //Call the function that paints the answers
+            paintButtons(event);
             alert("Correct!");
             correctTries++;
             newQuestion();
@@ -128,6 +132,11 @@ $(document).ready(function() {
             newQuestion();
         }
     });
+
+    //Function to paint the buttons green or red, depending on the answers
+    function paintButtons(pAnswerClick) {
+
+    }
 
     //Button function fired from HTML button
     function startGame() {
@@ -143,10 +152,22 @@ $(document).ready(function() {
 
     //Function to start the timer
     function timer(pTimer) {
+        var progTimerValue = 1;
         clearInterval(intervalID);
         intervalID = setInterval(function(){
-            $("#timer").text(pTimer);
-            pTimer--;
+            progTimerObj[0].attributes.value.nodeValue = progTimerValue;
+            progTimerValue++;
+            if (progTimerValue <= 3) {
+                progTimerObj.removeClass("is-warning");
+                progTimerObj.removeClass("is-danger");
+                progTimerObj.addClass("is-success");
+            } else if (progTimerValue >= 4 && progTimerValue <=7) {
+                progTimerObj.removeClass("is-success");
+                progTimerObj.addClass("is-warning");
+            } else {
+                progTimerObj.removeClass("is-warning");
+                progTimerObj.addClass("is-danger");
+            }
         } , 1000);
     }
 
@@ -154,9 +175,11 @@ $(document).ready(function() {
     //Should also start the timer that is shown, and the timer that counts the time before the new question is automatically shown
     function newQuestion() {
         clearTimeout(timeOutID);
+        progTimerObj[0].attributes.value.nodeValue = 0;
         //Check if the user hasn't finished all the questions
         if(questionsLeft()){
             //catch all the DOM elements
+            var qNumber = $("#question-number");
             var question = $("#question");
             var answer1 = $("#answer-one");
             var answer2 = $("#answer-two");
@@ -173,24 +196,26 @@ $(document).ready(function() {
             var currentCorrAnswer = questionsArr[currentQuestNum].cAns;
             correctAnswer = currentCorrAnswer;
 
+            //Add a new try to the counter
+            triesCounter++;
+            //Add 1 to the currentQuestNum to make sure it circles through the array
+            currentQuestNum++;
+
             //Set the values in the DOM
+            qNumber.text(currentQuestNum);
             question.text(currentQuestion);
             answer1.text(currentAnswer1);
             answer2.text(currentAnswer2);
             answer3.text(currentAnswer3);
             answer4.text(currentAnswer4);
 
-            //Add a new try to the counter
-            triesCounter++;
-            //Add 1 to the currentQuestNum to make sure it circles through the array
-            currentQuestNum++;
-
             //Once the DOM is set, call the timers (both the invisible and the visible one)
+            //Visible, shows the timer in the screen
+            timer(milSecToSec(seconds));
             //Invisible, calls the new question through another function if the user takes too much time
             //It's sent through another function to add to the incorrectTries var
             timeOutID = setTimeout(noAnswer, secToMilSec(seconds));
-            //Visible, shows the timer in the screen
-            timer(milSecToSec(seconds));
+            
         } else {
             endGame();
         }

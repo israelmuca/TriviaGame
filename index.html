@@ -5,38 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programming Knowledge Trivia!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <span id="main-container">
-        <h1>Programming knowledge trivia!</h1>
+    <section class="hero is-light">
+        <div class="hero-body">
+            <div class="container">
+            <h1 class="title">
+                Programming Knowledge Trivia
+            </h1>
+            <h2 class="subtitle">
+                So.. how well do you know what you're studying...?!
+            </h2>
+            </div>
+        </div>
+    </section>
+    <section class="columns">
+        <div class="column">
+            <!-- Separator -->
+        </div>
+    </section>
+    <div id="secondary-container" class="content columns">
+        <div class="column is-3"></div>
+        <div class="column">
+            <h4>Here we'll test your general knowledge about development.</h3>
+            <ul>
+                <li>This are basic programming questions, so no worries!</li>
+                <li>You'll have 10 seconds per question.</li>
+                <li>You'll know how much time is left by seeing a bar like this: <br>
+                    <progress class="progress is-success" value="60" max="100">60%</progress></li>
+                <li>Click on the correct answer.</li>
+                <li>When you finish, you may start over...</li>
+            </ul>
+            <br> <p class="center-text">Click the button to begin!
+            <br><button class="start-game button ">Start!</button></p>
+        </div>
+        <div class="column is-3"></div>
+    </div>
 
-        <span id="secondary-container">
-            <h2>Here we'll test your knowledge about development in general!</h2>
-            <h3>You'll only have 10 seconds per question, NO CHEATING!</h3>
-            <h3>Click the button to begin! <button class="start-game">Start!</button></h3>
-        </span>
-
-        <span id="trivia-container">
-            <h2 id="question"></h1>
-            <h3 id="answer-one" data="a"></h1>
-            <h3 id="answer-two" data="b"></h1>
-            <h3 id="answer-three" data="c"></h1>
-            <h3 id="answer-four" data="d"></h1>
-            <p >You have <span id="timer">10</span> seconds left</p>
-        </span>
-
-        <span id="end-game-container">
-            <h2>Did you have fun?</h2>
-            <h3>You had: <span id="score-correct"></span> correct answers.</h3>
-            <h3>You had: <span id="score-incorrect"></span> wrong answers.</h3>
-            <br>
-            <h3>Do you want to try again?</h3>
-            <button class="start-game">Start!</button>
-
-        </span>
+    <span id="trivia-container" class="columns">
+        <div class="column is-1"></div>
+        <div class="content column">
+            <h2>Question <span id="question-number"></span>:</h2>
+            <h3 id="question"></h3>
+            <hr>
+            <ul id="answer-list">
+                <li class="button is-fullwidth"><p id="answer-one" data="a"></p></li>
+                <li class="button is-fullwidth"><p id="answer-two" data="b"></p></li>
+                <li class="button is-fullwidth"><p id="answer-three" data="c"></p></li>
+                <li class="button is-fullwidth"><p id="answer-four" data="d"></p></li>
+            </ul> 
+            <hr>
+            <progress id="progTimer" class="progress" value="0" max="10"></progress>
+        </div>
+        <div class="column is-1"></div>
     </span>
 
+    <span id="end-game-container">
+        <h2>Did you have fun?</h2>
+        <h3>You had: <span id="score-correct"></span> correct answers.</h3>
+        <h3>You had: <span id="score-incorrect"></span> wrong answers.</h3>
+        <br>
+        <h3>Do you want to try again?</h3>
+        <button class="start-game">Start!</button>
+
+    </span>
     <!-- Import jQuert and custom JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="assets/javascript/app.js"></script>

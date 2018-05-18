@@ -1,0 +1,21 @@
+.center-text, .hero {
+    text-align: center;
+}
+
+.button {
+    margin-top: 1rem;
+}
+
+#answer-list {
+    list-style-type: none;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+hr {
+    margin-bottom: 0;
+}
+
+.progress::-webkit-progress-value {
+    transition: width 0.5s ease;
+  }
