@@ -319,9 +319,21 @@ $(document).ready(function() {
 
     //Function that's called when the user doesn't answer on time, and we want to call newQuestion but increasing the incorrectTries counter
     function noAnswer() {
-        incorrectTries++;
-        alert("Sorry, you ran out of time!");
-        newQuestion();
+        //No dejes que haga clic
+        clickCounter = true;
+        //Pausa el timer invisible y visible
+        clearInterval(intervalID);
+        clearTimeout(timeOutID);
+        //Shows incorrect in the title and eliminates the subtitle
+        title.text("Incorrect!");
+        subtitle.text("Sorry, you ran out of time!");
+        hero.removeClass("is-light");
+        hero.addClass("is-danger");
+        //Dale un par de segundos para que vea las respuestas
+        timeOutForPaint = setTimeout(function(){
+            incorrectTries++;
+            newQuestion(); 
+        }, 3000);
     }
 
     function endGame() {
