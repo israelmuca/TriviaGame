@@ -1,9 +1,14 @@
+body {
+    cursor: default;
+}
+
 .center-text, .hero {
     text-align: center;
 }
 
 .button {
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 #answer-list {

@@ -34,10 +34,8 @@ PSEUDOCODE:
 
 
 TO DO:
-- FIX  THE VALIDATION OF THE CORRECT ANSWERS
-    POSSIBLY BY USING THE FIRST CHAR OF THE ANSWERS IT'LL WORK
-- GET A PROPER UI
-- CHANGE THE CURSOR FOR SELECTING THE ANSWERS
+
+- MAKE 100% MOBILE
 
 */
 
@@ -49,6 +47,7 @@ var intervalID;
 var timeOutID;
 var seconds = 11000;          //Sets the seconds for each question, in milliseconds, one more than needed for progress bar aesthetics
 var currentQuestNum = 0;
+var clickCounter;
 
 //Makes sure the document is fully loaded when we get to work
 $(document).ready(function() {
@@ -129,39 +128,42 @@ $(document).ready(function() {
     $(".start-game").click(startGame);
     //Answers listener
     $("#answer-list").click(function(event) {
-        var isClickCorrect;
-        var answerClick = event.target.attributes.data;
-        var timeOutForPaint;
-        if (answerClick.nodeValue == correctAnswer) {
-            //Call the function that paints the answer
-            isClickCorrect = true;
-            paintButtons(answerClick, isClickCorrect);
-            //Pausa el timer invisible y visible
-            clearInterval(intervalID);
-            clearTimeout(timeOutID);
-            //Shows correct in the title and eliminates the subtitle
-            title.text("Correct!");
-            subtitle.text("");
-            //Dale un par de segundos para que vea las respuestas
-            timeOutForPaint = setTimeout(function(){
-                correctTries++;
-                newQuestion(); 
-            }, 3000);
-        } else {
-            //Call the function that paints the answer
-            isClickCorrect = false;
-            paintButtons(answerClick, isClickCorrect);
-            //Pausa el timer invisible y visible
-            clearInterval(intervalID);
-            clearTimeout(timeOutID);
-            //Shows correct in the title and eliminates the subtitle
-            title.text("Incorrect!");
-            subtitle.text("");
-            //Dale un par de segundos para que vea las respuestas
-            timeOutForPaint = setTimeout(function(){
-                incorrectTries++;
-                newQuestion(); 
-            }, 3000);
+        if (!clickCounter) {
+            clickCounter = true;
+            var isClickCorrect;
+            var answerClick = event.target.attributes.data;
+            var timeOutForPaint;
+            if (answerClick.nodeValue == correctAnswer) {
+                //Call the function that paints the answer
+                isClickCorrect = true;
+                paintButtons(answerClick, isClickCorrect);
+                //Pausa el timer invisible y visible
+                clearInterval(intervalID);
+                clearTimeout(timeOutID);
+                //Shows correct in the title and eliminates the subtitle
+                title.text("Correct!");
+                subtitle.text("");
+                //Dale un par de segundos para que vea las respuestas
+                timeOutForPaint = setTimeout(function(){
+                    correctTries++;
+                    newQuestion(); 
+                }, 3000);
+            } else {
+                //Call the function that paints the answer
+                isClickCorrect = false;
+                paintButtons(answerClick, isClickCorrect);
+                //Pausa el timer invisible y visible
+                clearInterval(intervalID);
+                clearTimeout(timeOutID);
+                //Shows correct in the title and eliminates the subtitle
+                title.text("Incorrect!");
+                subtitle.text("");
+                //Dale un par de segundos para que vea las respuestas
+                timeOutForPaint = setTimeout(function(){
+                    incorrectTries++;
+                    newQuestion(); 
+                }, 3000);
+            }
         }
     });
 
@@ -236,6 +238,8 @@ $(document).ready(function() {
         //Shows correct title and subtitle
         title.text("Programming Knowledge Trivia");
         subtitle.text("So.. how well do you know what you're studying...?!");
+
+        clickCounter = false;
         clearTimeout(timeOutID);
         progTimerObj[0].attributes.value.nodeValue = 0;
         //Check if the user hasn't finished all the questions
