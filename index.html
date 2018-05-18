@@ -9,23 +9,29 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
+    <!-- HEADER -->
     <section class="hero is-light">
         <div class="hero-body">
             <div class="container">
-            <h1 class="title">
+            <h1 class="title" id="title">
                 Programming Knowledge Trivia
             </h1>
-            <h2 class="subtitle">
+            <h2 class="subtitle" id="subtitle">
                 So.. how well do you know what you're studying...?!
             </h2>
             </div>
         </div>
     </section>
+
+    <!-- Separator to make sure the header is not stuck to the next elements -->
     <section class="columns">
         <div class="column">
             <!-- Separator -->
         </div>
     </section>
+
+    <!-- Container for instructions -->
     <div id="secondary-container" class="content columns">
         <div class="column is-3"></div>
         <div class="column">
@@ -39,11 +45,12 @@
                 <li>When you finish, you may start over...</li>
             </ul>
             <br> <p class="center-text">Click the button to begin!
-            <br><button class="start-game button ">Start!</button></p>
+            <br><button class="start-game button is-primary">Start!</button></p>
         </div>
         <div class="column is-3"></div>
     </div>
 
+    <!-- Container for trivia -->
     <span id="trivia-container" class="columns">
         <div class="column is-1"></div>
         <div class="content column">
@@ -51,10 +58,10 @@
             <h3 id="question"></h3>
             <hr>
             <ul id="answer-list">
-                <li class="button is-fullwidth"><p id="answer-one" data="a"></p></li>
-                <li class="button is-fullwidth"><p id="answer-two" data="b"></p></li>
-                <li class="button is-fullwidth"><p id="answer-three" data="c"></p></li>
-                <li class="button is-fullwidth"><p id="answer-four" data="d"></p></li>
+                <li class="button is-fullwidth answer-one" data="a"><p id="answer-one" data="a"></p></li>
+                <li class="button is-fullwidth answer-two" data="b"><p id="answer-two" data="b"></p></li>
+                <li class="button is-fullwidth answer-three" data="c"><p id="answer-three" data="c"></p></li>
+                <li class="button is-fullwidth answer-four" data="d"><p id="answer-four" data="d"></p></li>
             </ul> 
             <hr>
             <progress id="progTimer" class="progress" value="0" max="10"></progress>
@@ -62,16 +69,20 @@
         <div class="column is-1"></div>
     </span>
 
-    <span id="end-game-container">
-        <h2>Did you have fun?</h2>
-        <h3>You had: <span id="score-correct"></span> correct answers.</h3>
-        <h3>You had: <span id="score-incorrect"></span> wrong answers.</h3>
-        <br>
-        <h3>Do you want to try again?</h3>
-        <button class="start-game">Start!</button>
+    <!-- End game container -->
+    <div id="end-game-container" class="content columns">
+            <div class="column is-3"></div>
+            <div class="column">
+                <h3 id="result-phrase"></h3>
+                <h4>You had: <span id="score-correct"></span> correct answers.</h4>
+                <h4>You had: <span id="score-incorrect"></span> wrong answers.</h4>
+                <br> <h4 class="center-text">Did you have fun? <br> Do you want to try again?
+                <br><button class="start-game button is-primary">Try again!</button></h4>
+            </div>
+            <div class="column is-3"></div>
+        </div>
 
-    </span>
-    <!-- Import jQuert and custom JS -->
+    <!-- Import jQuery and custom JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="assets/javascript/app.js"></script>
 </body>

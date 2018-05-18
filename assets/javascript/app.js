@@ -61,6 +61,8 @@ $(document).ready(function() {
     var endGameContainer = $("#end-game-container");
     endGameContainer.hide();
     var progTimerObj = $("#progTimer");
+    var title = $("#title");
+    var subtitle = $("#subtitle");
 
     //Array of objects to hold the questions and answers
     var questionsArr = [
@@ -114,28 +116,85 @@ $(document).ready(function() {
         },
     ]
 
+    //Array of messages to tell the user once they finish the game
+    var resultPhraseArr = [
+                        "hhhhmmm... Are you sure you actually tried?",
+                        "geee... I guess we all have bad days?",
+                        "It's ok! Were you nervous?",
+                        "Awesome! Keep it up!"
+                        ];
+
     //Once ALL of the DOM is set, start listening for the clicks!
     //Buttons listener
     $(".start-game").click(startGame);
     //Answers listener
-    $("#trivia-container").click(function(event) {
+    $("#answer-list").click(function(event) {
+        var isClickCorrect;
         var answerClick = event.target.attributes.data;
+        var timeOutForPaint;
         if (answerClick.nodeValue == correctAnswer) {
-            //Call the function that paints the answers
-            paintButtons(event);
-            alert("Correct!");
-            correctTries++;
-            newQuestion();
+            //Call the function that paints the answer
+            isClickCorrect = true;
+            paintButtons(answerClick, isClickCorrect);
+            //Pausa el timer invisible y visible
+            clearInterval(intervalID);
+            clearTimeout(timeOutID);
+            //Shows correct in the title and eliminates the subtitle
+            title.text("Correct!");
+            subtitle.text("");
+            //Dale un par de segundos para que vea las respuestas
+            timeOutForPaint = setTimeout(function(){
+                correctTries++;
+                newQuestion(); 
+            }, 3000);
         } else {
-            alert("Incorrect!");
-            incorrectTries++;
-            newQuestion();
+            //Call the function that paints the answer
+            isClickCorrect = false;
+            paintButtons(answerClick, isClickCorrect);
+            //Pausa el timer invisible y visible
+            clearInterval(intervalID);
+            clearTimeout(timeOutID);
+            //Shows correct in the title and eliminates the subtitle
+            title.text("Incorrect!");
+            subtitle.text("");
+            //Dale un par de segundos para que vea las respuestas
+            timeOutForPaint = setTimeout(function(){
+                incorrectTries++;
+                newQuestion(); 
+            }, 3000);
         }
     });
 
     //Function to paint the buttons green or red, depending on the answers
-    function paintButtons(pAnswerClick) {
+    function paintButtons(pAnswerClick, pIsClickCorrect) {
+        var answer1 = $(".answer-one");
+        var answer2 = $(".answer-two");
+        var answer3 = $(".answer-three");
+        var answer4 = $(".answer-four");
 
+        if (pIsClickCorrect) { //if click is correct
+            //Find which button was, and paint it green
+            if (pAnswerClick.nodeValue == "a") {
+                answer1.addClass("is-success");
+            } else if (pAnswerClick.nodeValue == "b") {
+                answer2.addClass("is-success");
+            } else if (pAnswerClick.nodeValue == "c") {
+                answer3.addClass("is-success");
+            } else if (pAnswerClick.nodeValue == "d") {
+                answer4.addClass("is-success");
+            }
+        } else {
+            //Find which button was, and paint it red
+            if (pAnswerClick.nodeValue == "a") {
+                answer1.addClass("is-danger");
+            } else if (pAnswerClick.nodeValue == "b") {
+                answer2.addClass("is-danger");
+            } else if (pAnswerClick.nodeValue == "c") {
+                answer3.addClass("is-danger");
+            } else if (pAnswerClick.nodeValue == "d") {
+                answer4.addClass("is-danger");
+            }
+        }
     }
 
     //Button function fired from HTML button
@@ -174,10 +233,13 @@ $(document).ready(function() {
     //Sets the new question in the DOM
     //Should also start the timer that is shown, and the timer that counts the time before the new question is automatically shown
     function newQuestion() {
+        //Shows correct title and subtitle
+        title.text("Programming Knowledge Trivia");
+        subtitle.text("So.. how well do you know what you're studying...?!");
         clearTimeout(timeOutID);
         progTimerObj[0].attributes.value.nodeValue = 0;
         //Check if the user hasn't finished all the questions
-        if(questionsLeft()){
+        if (questionsLeft()) {
             //catch all the DOM elements
             var qNumber = $("#question-number");
             var question = $("#question");
@@ -185,6 +247,20 @@ $(document).ready(function() {
             var answer2 = $("#answer-two");
             var answer3 = $("#answer-three");
             var answer4 = $("#answer-four");
+
+            //catch DOM buttons and remove the class if it has it
+            var answer1Button = $(".answer-one");
+            var answer2Button = $(".answer-two");
+            var answer3Button = $(".answer-three");
+            var answer4Button = $(".answer-four");
+            answer1Button.removeClass("is-danger");
+            answer2Button.removeClass("is-danger");
+            answer3Button.removeClass("is-danger");
+            answer4Button.removeClass("is-danger");
+            answer1Button.removeClass("is-success");
+            answer2Button.removeClass("is-success");
+            answer3Button.removeClass("is-success");
+            answer4Button.removeClass("is-success");
 
             //Get questions and answers from the array                          //SHOULDN'T BE RANDOM, SHOULD BE IN ORDER!!!
             //var currentQuestNum = Math.floor(Math.random() * questionsArr.length, 1);
@@ -243,6 +319,16 @@ $(document).ready(function() {
         //Sets the values of the correct/incorrect answers
         $("#score-correct").text(correctTries);
         $("#score-incorrect").text(incorrectTries);
+        if (incorrectTries == 1) {
+            $("#result-phrase").text(resultPhraseArr[3]);
+        } else if (incorrectTries == 2) {
+            $("#result-phrase").text(resultPhraseArr[2]);
+        } else if (incorrectTries == 3) {
+            $("#result-phrase").text(resultPhraseArr[1]);
+        } else if (incorrectTries == 4) {
+            $("#result-phrase").text(resultPhraseArr[0]);
+        }
+        
         //Modifies the DOM to show the correct containers
         $("#trivia-container").hide();
         $("#end-game-container").show();
