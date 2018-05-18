@@ -62,6 +62,7 @@ $(document).ready(function() {
     var progTimerObj = $("#progTimer");
     var title = $("#title");
     var subtitle = $("#subtitle");
+    var hero = $(".hero");
 
     //Array of objects to hold the questions and answers
     var questionsArr = [
@@ -143,6 +144,8 @@ $(document).ready(function() {
                 //Shows correct in the title and eliminates the subtitle
                 title.text("Correct!");
                 subtitle.text("");
+                hero.removeClass("is-light");
+                hero.addClass("is-success");
                 //Dale un par de segundos para que vea las respuestas
                 timeOutForPaint = setTimeout(function(){
                     correctTries++;
@@ -158,6 +161,8 @@ $(document).ready(function() {
                 //Shows correct in the title and eliminates the subtitle
                 title.text("Incorrect!");
                 subtitle.text("");
+                hero.removeClass("is-light");
+                hero.addClass("is-danger");
                 //Dale un par de segundos para que vea las respuestas
                 timeOutForPaint = setTimeout(function(){
                     incorrectTries++;
@@ -238,7 +243,9 @@ $(document).ready(function() {
         //Shows correct title and subtitle
         title.text("Programming Knowledge Trivia");
         subtitle.text("So.. how well do you know what you're studying...?!");
-
+        hero.addClass("is-light");
+        hero.removeClass("is-danger");
+        hero.removeClass("is-success");
         clickCounter = false;
         clearTimeout(timeOutID);
         progTimerObj[0].attributes.value.nodeValue = 0;
