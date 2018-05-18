@@ -144,7 +144,7 @@ $(document).ready(function() {
                 clearTimeout(timeOutID);
                 //Shows correct in the title and eliminates the subtitle
                 title.text("Correct!");
-                subtitle.text("");
+                subtitle.text(":)");
                 hero.removeClass("is-light");
                 hero.addClass("is-success");
                 //Dale un par de segundos para que vea las respuestas
@@ -161,7 +161,7 @@ $(document).ready(function() {
                 clearTimeout(timeOutID);
                 //Shows correct in the title and eliminates the subtitle
                 title.text("Incorrect!");
-                subtitle.text("");
+                subtitle.text(":(");
                 hero.removeClass("is-light");
                 hero.addClass("is-danger");
                 //Dale un par de segundos para que vea las respuestas
@@ -327,7 +327,7 @@ $(document).ready(function() {
         clearTimeout(timeOutID);
         //Shows incorrect in the title and eliminates the subtitle
         title.text("Incorrect!");
-        subtitle.text("Sorry, you ran out of time!");
+        subtitle.text("Sorry, you ran out of time!    :(");
         hero.removeClass("is-light");
         hero.addClass("is-danger");
         //Dale un par de segundos para que vea las respuestas
