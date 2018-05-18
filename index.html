@@ -6,12 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Programming Knowledge Trivia!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/brands.css" integrity="sha384-VGCZwiSnlHXYDojsRqeMn3IVvdzTx5JEuHgqZ3bYLCLUBV8rvihHApoA1Aso2TZA" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css" integrity="sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="site"> <!-- "hack" for a sticky footer -->
+
+<section class="site-content"> <!-- "hack" for a sticky footer -->
 
     <!-- HEADER -->
-    <section class="hero is-light">
+    <section id="hero" class="hero is-light">
         <div class="hero-body">
             <div class="container">
             <h1 class="title" id="title">
@@ -72,18 +76,49 @@
 
     <!-- End game container -->
     <div id="end-game-container" class="content columns is-mobile">
-            <div class="column is-3"></div>
-            <div class="column">
-                <hr>
-                <h3 id="result-phrase"></h3>
-                <hr>
-                <h4 style="margin-top: 10px">You had: <span id="score-correct"></span> correct answers.</h4>
-                <h4>You had: <span id="score-incorrect"></span> wrong answers.</h4>
-                <br> <h4 class="center-text">Did you have fun? <br> Do you want to try again?
-                <br><button class="start-game button is-primary is-medium">Try again!</button></h4>
-            </div>
-            <div class="column is-3"></div>
+        <div class="column is-3"></div>
+        <div class="column">
+            <hr>
+            <h3 id="result-phrase"></h3>
+            <hr>
+            <h4 style="margin-top: 10px">You had: <span id="score-correct"></span> correct answers.</h4>
+            <h4>You had: <span id="score-incorrect"></span> wrong answers.</h4>
+            <br> <h4 class="center-text">Did you have fun? <br> Do you want to try again?
+            <br><button class="start-game button is-primary is-medium">Try again!</button></h4>
         </div>
+        <div class="column is-3"></div>
+    </div>
+
+</section>
+
+    <!-- Footer -->
+    <section class="hero is-dark is-bold">
+        <div class="hero-body" style="
+        padding-top: 16px;
+        padding-bottom: 16px;"
+        >
+            <div class="container columns clearfix">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <p><strong>Unit 5 HW</strong> by Israel Muñoz.</p>
+                </div>
+                <div class="column is-4"></div>
+                <div class="column">
+                    <a href="https://github.com/IsraelMuca/" target="_blank">
+                        <span class="icon">
+                            <i class="fab fa-github-alt"></i>
+                        </span>
+                    </a>
+                    <a href="https://twitter.com/IsraelMuca/" target="_blank">
+                        <span class="icon">
+                            <i class="fab fa-twitter"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Import jQuery and custom JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

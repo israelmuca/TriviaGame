@@ -63,7 +63,7 @@ $(document).ready(function() {
     var progTimerObj = $("#progTimer");
     var title = $("#title");
     var subtitle = $("#subtitle");
-    var hero = $(".hero");
+    var hero = $("#hero");
 
     //Array of objects to hold the questions and answers
     var questionsArr = [
