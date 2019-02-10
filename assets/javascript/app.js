@@ -46,7 +46,7 @@ var correctTries = 0;
 var incorrectTries = 0;
 var intervalID;
 var timeOutID;
-var seconds = 11000;          //Sets the seconds for each question, in milliseconds, one more than needed for progress bar aesthetics
+var seconds = 16000;          //Sets the seconds for each question, in milliseconds, one more than needed for progress bar aesthetics
 var currentQuestNum = 0;
 var clickCounter;
 
@@ -251,11 +251,11 @@ $(document).ready(function() {
         intervalID = setInterval(function(){
             progTimerObj[0].attributes.value.nodeValue = progTimerValue;
             progTimerValue++;
-            if (progTimerValue <= 3) {
+            if (progTimerValue <= 5) {
                 progTimerObj.removeClass("is-warning");
                 progTimerObj.removeClass("is-danger");
                 progTimerObj.addClass("is-success");
-            } else if (progTimerValue >= 4 && progTimerValue <=7) {
+            } else if (progTimerValue >= 6 && progTimerValue <=10) {
                 progTimerObj.removeClass("is-success");
                 progTimerObj.addClass("is-warning");
             } else {
